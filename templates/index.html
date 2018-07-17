@@ -3,17 +3,38 @@
 {% block title %}Home{% endblock %}
 
 {% block main %}
-  <h3>Welcome the to Home page</h3>
-  <br>
-  <br>
   {% if not user %}
-  <h3>Would like to See all Our Books?</h3>
-  <h4>Please Register then</h4>
+  <h1 class="display-3">Like to Read?</h1>
+  <br>
+  <br>
+  <img class="img-fluid" src="https://www.timeshighereducation.com/sites/default/files/styles/the_breaking_news_image_style/public/row-of-books-stacked-side-by-side.jpg?itok=0-hDr-72" alt="Like to Read?">
+  <br>
+  <br>
+  <br>
+  <h3 class="display-4">Then say Hello to our Curated Selection</h3>
+  <p class="lead">More than 5.000 special editions reviewd by millions of readers from all over the World</p>
+  <br>
+  <br>
+  <img class="img-fluid" src="https://www.twincities.com/wp-content/uploads/2017/09/books-reading-library.jpg" alt="Selection of Books">
+  <br>
+  <br>
+  <h3 class="display-4">Create an Account in one Step</h3>
+  <p class="lead"><a href="/register" alt="Create Account">Register</a></p>
+  <div style="height: 70px;"></div>
   {% endif %}
   {% if user %}
-   <h3>Hi {{ user }}, nice to see you again</h3>
-   <p>Here your have the link for our book searchin engine</p>
-   <p><a href="/search" alt="search">Search</a></p>
+    <h1 class="display-3">Hi {{ user }}, nice to see you</h1>
+    <br>
+    <br>
+    <img class="img-fluid" src="https://www.isbc.ac.in/images/facultys/Top-10-books-blog-banner.png" alt="Read?">
+    <br>
+    <br>
+
+    <h3 class="display-4">Here you have our Fantastic Selection</h3>
+    <p class="lead"><a href="/search" alt="search">Start Browsing</a></p>
+    <img class="img-fluid" src="https://img.etimg.com/thumb/msid-64290628,width-643,imgsize-247302,resizemode-4/millennials-dispel-stereotype-prefer-physical-books-over-digital-versions.jpg" alt="Selection of Books">
+    <br>
+    <br>
   {% endif %}
   {% if message %}
     {{ message }}

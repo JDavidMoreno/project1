@@ -128,8 +128,9 @@ def book(isbn_code):
 
         res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "hYrhzYJMOTfIed5gFDH5Q", "isbns": isbn_code})
         average = res.json()
+        print(average["books"][0])
 
-        return render_template("book.html", book=book, comments=comments, notice=notice, average=average["books"])
+        return render_template("book.html", book=book, comments=comments, notice=notice, average=average["books"][0])
 
     except KeyError:
         return redirect(url_for("index"))
