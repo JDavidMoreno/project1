@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}Books{% endblock %}
+
+{% block main %}
+  <h3>Hi! {{ user }}These are the books</h3>
+  <ul>
+    <li>Harry Potter</li>
+    <li>La Catedral del Mar</li>
+  </ul>
+  {% if message %}
+    <h3>{{ message }}</h3>
+  {% endif %}
+{% endblock %}

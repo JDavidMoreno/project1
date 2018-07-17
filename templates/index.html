@@ -1,0 +1,21 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+  <h3>Welcome the to Home page</h3>
+  <br>
+  <br>
+  {% if not user %}
+  <h3>Would like to See all Our Books?</h3>
+  <h4>Please Register then</h4>
+  {% endif %}
+  {% if user %}
+   <h3>Hi {{ user }}, nice to see you again</h3>
+   <p>Here your have the link for our book searchin engine</p>
+   <p><a href="/search" alt="search">Search</a></p>
+  {% endif %}
+  {% if message %}
+    {{ message }}
+  {% endif %}
+{% endblock %}

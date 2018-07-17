@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ book.title }}{% endblock %}
+
+
+{% block main %}
+  <h3>Hi, this is the page for the book '{{ book.title }}'</h3>
+  {% if comments %}
+    <div class="comments">
+      {% for comment in comments %}
+        <div class="comment">
+          <p>{{ comment.comment }}<p>
+          <p>Comment by {{ comment.username }} on {{ comment.date }}</p>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if average %}
+    <p>The average rating is {{ average["average_rating"] }} over {{ average["rating_counts"]}} comments.</p>
+  {% endif %}
+  <form action"/book/{{ book.isbn }}" method="POST">
+    <div class="form-group">
+      <label for="book-rating">Your Rating</lable>
+      <select class="form-control" name="rating" id="book-rating">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="1">2</option>
+        <option value="1">3</option>
+        <option value="1">4</option>
+        <option value="5">5</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="book-reviews">What do you think about this book?</label>
+      <textarea id="book-reviews" class="form-control" rows="3" name="comment" placeholder="Enter your review here"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Comment</button>
+  </form>
+  {% if notice %}
+    <h3>{{ notice }}</h3>
+  {% endif %}
+{% endblock %}
