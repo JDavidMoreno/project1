@@ -73,10 +73,13 @@ def login():
 
 @app.route("/logout")
 def logout():
-    del session["user_id"]
-    del session["user_username"]
 
-    return redirect(url_for("index"))
+    try:
+        del session["user_id"]
+        del session["user_username"]
+        return redirect(url_for("index"))
+    except KeyError:
+        return redirect(url_for("index"))
 
 @app.route("/search", methods=["GET", "POST"])
 def search():

@@ -5,6 +5,7 @@
 
 {% block main %}
   <h3 class="display-4">{{ book.title }}</h3>
+  <p>Author: {{ book.name }}, Edition: {{ book.year }}, Isbn: {{ book.isbn }}</p>
   <br>
   {% if comments %}
   <h3>Comments</h3>
