@@ -1,8 +1,6 @@
 import os
 import requests
 import json
-
-
 from flask import Flask, session, render_template, url_for, request, redirect
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -46,7 +44,6 @@ def register():
             return render_template("register.html", message='You were successfully registered')
         else:
             return render_template("register.html", error='Sorry, this Username already exists')
-
     else:
         return render_template("register.html")
 
@@ -66,9 +63,7 @@ def login():
             else:
                 session["user_id"] = user.id
                 session["user_username"] = user.username
-
             return redirect(url_for("index"))
-
     return render_template("login.html")
 
 @app.route("/logout")
@@ -90,7 +85,7 @@ def search():
         if request.method == "POST":
             query = request.form.get("query")
             query_extend = '%' + query + '%'
-            print(query_extend)
+
             suggestions = db.execute("SELECT * FROM books JOIN author ON author.id = books.author_id JOIN year ON year.id = books.year_id WHERE\
              isbn LIKE :query OR title LIKE :query OR name LIKE :query LIMIT 10",
             {"query": query_extend}).fetchall()
@@ -103,8 +98,6 @@ def search():
             return render_template("search.html", nothing=nothing)
     except KeyError:
         return redirect(url_for("index"))
-
-
 
 @app.route("/book/<string:isbn_code>", methods=["GET", "POST"])
 def book(isbn_code):
@@ -131,7 +124,6 @@ def book(isbn_code):
 
         res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "hYrhzYJMOTfIed5gFDH5Q", "isbns": isbn_code})
         average = res.json()
-        print(average["books"][0])
 
         return render_template("book.html", book=book, comments=comments, notice=notice, average=average["books"][0])
 
@@ -142,8 +134,7 @@ def book(isbn_code):
 def api(isbn_code):
 
     data = db.execute("SELECT * FROM books JOIN author ON author.id = books.author_id JOIN year ON year.id = books.year_id WHERE isbn = :isbn", {"isbn":isbn_code}).fetchone()
-    print(data)
-    print(data.title)
-    print(json.dumps(dict(data)))
-
-    return json.dumps(dict(data))
+    if data == None:
+        return 'ISBN Number not Found', 404
+    else:    
+        return json.dumps(dict(data))

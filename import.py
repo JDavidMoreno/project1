@@ -1,5 +1,4 @@
 import csv
-
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
@@ -15,28 +14,22 @@ def main():
         count = 0
         for isbn, name, author, year in books:
 
-
-
             if db.execute("SELECT id FROM author WHERE name = :author", {"author": author}).rowcount == 0:
                 db.execute("INSERT INTO author (name) VALUES (:author)",  {"author": author})
                 db.commit()
             author_id = db.execute("SELECT id FROM author WHERE name = :author", {"author": author}).fetchone()
-
 
             if db.execute("SELECT id FROM year WHERE year = :year", {"year": year}).rowcount == 0:
                 db.execute("INSERT INTO year (year) VALUES (:year)",  {"year": year})
                 db.commit()
             year_id = db.execute("SELECT id FROM year WHERE year = :year", {"year": year}).fetchone()
 
-
             db.execute("INSERT INTO books (isbn, title, author_id, year_id) VALUES (:isbn, :name, :author_id, :year_id)",
                       {"isbn": isbn, "name": name, "author_id": author_id.id, "year_id": year_id.id })
-
 
             print(count)
             count += 1
             db.commit()
-
 
 if __name__ == "__main__":
     main()
